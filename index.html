@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>Service Monitor</title>
+</head>
+<body>
+    <header class="header animate__animated animate__fadeInDown">
+        <div class="header-logo-box">
+            <h1 class="header-logo">S/M</h1>
+        </div>
+
+        <a class="header-add-client add-client-page">Клієнти</a>
+
+        <div class="auth-block">
+            <div class="auth-user">
+                <img src="./assets/img/icons/auth-user.svg" alt="user">
+                <span class="auth__username">Username</span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <div class="video-back">
+                <video autoplay muted loop playsinline>
+                    <source src="./assets/img/back.mp4" type="video/mp4">
+                </video>
+                <div class="video-filter"></div>
+            </div>
+
+            <div class="hero-content" data-name="1">
+                <div class="title"><h2 class="hero__title">SERVICE MONITOR</h2></div>
+                <div class="find">
+                    <input type="text" class="hero__input"
+                        placeholder="Введіть назву клієнта">
+                    <ul class="result scroll-style">
+                        <!-- <li class="result__item hide">
+                            <span class="result__text">Gagarin</span>
+                            <div class="result__arrow"></div>
+                        </li>-->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <section class="services page fade-up" data-id="services">
+            <div class="services-header">
+                <button class="services__back-btn back-btn"><div class="arrow"></div></button>
+                <h2 class="services__title">Монітор служб</h2>
+            </div>
+
+            <div class="services-body">
+                <aside class="menu">
+                    <div class="menu-header">
+                        <input type="text" class="menu__find" placeholder="Введіть назву клієнта">
+                    </div>
+            
+                    <div class="menu-body scroll-style">
+                        <ul class="menu-list hotel-list">
+                            <!-- <li class="menu-list__item acc">
+                                <div class="menu-list__name acc-name">Gagarin</div>
+                                <div class="menu-sublist acc-sublist" data-state="0">
+                                    <div class="acc-sublist-content">
+                                        <div class="menu-sublist__item">Gagarin Poltava</div>
+                                        <div class="menu-sublist__item">Gagarin Poltava</div>
+                                        <div class="menu-sublist__item">Gagarin Poltava</div>
+                                        <div class="menu-sublist__item">Gagarin Poltava</div>
+                                    </div>
+                                </div>
+                            </li>
+            
+                            <li class="menu-list__item">
+                                <div class="menu-list__name single">Гойра груп</div>
+                            </li> -->
+                        </ul>
+                    </div>
+                </aside>
+
+               <div class="workspace">
+                    <div class="workspace-header">
+                        <h2 class="workspace__title">Список служб:</h2>
+                    </div>
+            
+                    <div class="workspace-body">
+                        <table class="main-table">
+                            <thead class="main-table-head">
+                                <tr>
+                                    <th scope="col" class="main-table-head__item">
+                                        Назва служби
+                                    </th>
+                                    <th scope="col" class="main-table-head__item">
+                                        Версія
+                                    </th>
+                                    <th scope="col" class="main-table-head__item">
+                                        Стан
+                                    </th>
+                                    <th scope="col" class="main-table-head__item">
+                                        IP-адреса
+                                    </th>
+                                    <th scope="col" class="main-table-head__item">
+                                        Деталі
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="serviceTableBody">
+                                <tr class="main-table-service">
+                                    <td class="main-table-service__item name">HMS FR UA PRRO</td>
+                                    <td class="main-table-service__item">1.23.2</td>
+                                    <td class="main-table-service__item">
+                                        <span class="state disabled">disabled</span>
+                                    </td>
+                                    <td class="main-table-service__item">123.322.12.1</td>
+                                    <td class="main-table-service__item">....</td>
+                                </tr>
+                                <tr class="main-table-service">
+                                    <td class="main-table-service__item name">HMS FR UA PRRO</td>
+                                    <td class="main-table-service__item">1.25.6</td>
+                                    <td class="main-table-service__item">
+                                        <span class="state active">active</span>
+                                    </td>
+                                    <td class="main-table-service__item">123.322.12.1</td>
+                                    <td class="main-table-service__item">....</td>
+                                </tr>
+                                <tr class="main-table-service">
+                                    <td class="main-table-service__item name">HMS FR UA PRRO</td>
+                                    <td class="main-table-service__item">1.12.9</td>
+                                    <td class="main-table-service__item">
+                                        <span class="state auto">automatic</span>
+                                    </td>
+                                    <td class="main-table-service__item">123.322.12.1</td>
+                                    <td class="main-table-service__item">....</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+        </section>
+
+        <section class="add-client fade-up page" data-id="add-client">
+
+            <div class="services-header">
+                <button class="services__back-btn back-btn"><div class="arrow"></div></button>
+                <h2 class="services__title">Додати клієнта</h2>
+            </div>
+            <div class="container">
+                <div class="add-client-panel">
+                    <div class="add-client-block">
+                        <label for="add">Додати клієнта:</label>
+                        <input type="text" id="add-input" class="add-client__input menu__find" placeholder="Ведіть назву клієнта">
+                        <button class="add-client__btn" id="add-btn">+</button>
+                    </div>
+    
+                    <ul class="add-client-list hotel-list">
+
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="./js/index.js"></script>
+</body>
+</html>

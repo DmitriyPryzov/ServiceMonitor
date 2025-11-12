@@ -1,0 +1,65 @@
+@use "../../utils/vars" as *;
+@use "../../utils/mixins" as *;
+
+
+.main-table {
+    background-color: #1f1f1f;
+    min-width: 100%;
+    font-family: "Montserrat", sans-serif;
+    color: #fff;
+    table-layout: fixed;
+    border-radius: 10px 10px 0 0; 
+    border-collapse: collapse;
+
+    &-head tr{
+        width: 100%;
+        color: #9ca3af;
+        border-bottom: 1px solid #464646;
+        border-radius: 10px 10px 0 0; 
+    }
+
+    &-head__item {
+        padding: 20px 20px;
+        font-weight: 300;
+        text-transform: uppercase;
+        text-align: left;
+        color: #9ca3af;
+    }
+
+    &-service {
+        &:hover {
+            background-color: #292929;
+            cursor: pointer;
+        }
+    }
+
+    &-service__item {
+        padding: 20px;
+        border-bottom: 1px solid #3b3b3b;
+        color: #d4d6da;
+    }
+
+    &-service__item.name {
+        color: #fff;
+    }
+
+    .state {
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+
+    .state.disabled {
+        background-color: #533131;
+        color: #c64041;
+    }
+
+    .state.active {
+        background-color: #26483d;
+        color: #1caf78;
+    }
+
+    .state.auto {
+        background-color: #544325;
+        color: #f5871d;
+    }
+}

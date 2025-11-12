@@ -1,0 +1,19 @@
+@mixin flex($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+@mixin font($name: "Montserrat", $weight: 500, $size: 16px, $transform: none) {
+    font-family: $name, sans-serif;
+    font-weight: $weight;
+    font-size: $size;
+    text-transform: $transform; 
+}
+
+@mixin pseudo($content: "", $display: block, $position: absolute) {
+    content: $content;
+    display: $display;
+    position: $position;
+}

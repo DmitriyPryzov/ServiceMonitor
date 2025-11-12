@@ -1,0 +1,38 @@
+.acc {
+    overflow: hidden;
+}
+
+.single {
+    padding-left: 30px;    
+}
+
+.acc .acc-name::before {
+    content: "";
+    border-right: 2px solid rgb(255, 255, 255);
+    border-bottom: 2px solid rgb(255, 255, 255);
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    transform: rotate(-45deg);
+    transition: all 0.3s;
+}
+
+.acc-sublist {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease-in-out;
+    overflow: hidden;
+
+    &-content {
+        overflow: hidden;
+    }
+}
+
+.acc.open .acc-sublist {
+   grid-template-rows: 1fr; 
+}
+
+.acc.open .acc-name::before {
+    transition: all 0.3s;
+    transform: rotate(45deg) translateY(-5px);
+}

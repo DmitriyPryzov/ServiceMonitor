@@ -1,0 +1,41 @@
+@use "../utils/vars" as *;
+@use "../utils/mixins" as *;
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+a, a:visited {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.scroll-style {
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+    }
+}

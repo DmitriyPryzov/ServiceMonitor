@@ -1,0 +1,53 @@
+@use "../utils/vars" as *;
+@use "../utils/mixins" as *;
+
+.header {
+
+    padding: 20px 30px;
+    color: #e4e4e4;
+    font-family: "Montserrat", sans-serif;
+    position: absolute;
+    z-index: 5;
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-logo {
+        margin: 0;
+        font-family: "Montserrat", sans-serif;
+    }
+
+    &-add-client {
+        cursor: pointer;
+        padding: 5px;
+        border-radius: 10px;
+
+        &:hover {
+            background-color: rgb(255, 255, 255, 0.1);
+        }
+
+    }
+    
+
+    .auth-user {
+        cursor: pointer;
+        padding: 5px;
+        padding: 5px 10px;
+        border-radius: 5px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        font-family: "Montserrat", sans-serif;
+
+        >img {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+    }
+}

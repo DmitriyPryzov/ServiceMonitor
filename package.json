@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "sass": "^1.93.2"
+  },
+  "name": "ServiceMonitor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "sass": "sass --watch scss:css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

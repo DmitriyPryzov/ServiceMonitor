@@ -1,0 +1,21 @@
+@use "./utils/vars" as *;
+@use "./utils/mixins" as *;
+@use "./base/modern-reset";
+@use "./base/fonts";
+@use "./base/typography";
+@use "./base/base";
+
+@use "./main/hero";
+@use "./main/clients";
+@use "./main/_services/services";
+@use "./main/_services/menu";
+@use "./main/_services/workspace";
+@use "./main/_services/table";
+
+@use "./main/add-clients";
+
+@use "./components/pages";
+@use "./components/accordion";
+
+@use "./layout/header";
+@use "./layout/footer";
