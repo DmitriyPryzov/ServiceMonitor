@@ -80,7 +80,7 @@
         font-family: "Montserrat", sans-serif;
 
         background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(7px); 
+        backdrop-filter: blur(5px); 
     }
 
     .find {
@@ -108,31 +108,13 @@
         overflow-y: auto;
         overflow-x: hidden;
 
-        // &::-webkit-scrollbar {
-        //     width: 6px;
-        // }
-
-        // &::-webkit-scrollbar-track {
-        //     background: rgba(255, 255, 255, 0.1);
-        //     border-radius: 10px;
-        // }
-
-        // &::-webkit-scrollbar-thumb {
-        //     background: rgba(255, 255, 255, 0.3);
-        //     border-radius: 10px;
-
-        //     &:hover {
-        //         background: rgba(255, 255, 255, 0.5);
-        //     }
-        // }
-
         &__item {
             margin-top: 10px;
             background: rgba(255, 255, 255, 0.1);
             -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(7px);
             padding: 20px;
-            box-shadow: 0px 1px 17px 4px rgba(0, 0, 0, 0.5);
+            // box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, 0.5);
             border-radius: 15px;
 
             font-size: 20px;
@@ -197,4 +179,90 @@
             font-size: 0;
         }
     }
+
+
+     @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+
+    @keyframes fadeInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes pulse {
+        0% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.2); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+        .title { font-size: 3rem; }
+        .blob { filter: blur(50px); }
+    }
+
+    .gradient-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: 
+            radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+            radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+            radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+    }
+
+    .blob {
+        position: absolute;
+        filter: blur(80px);
+        z-index: -1;
+        opacity: 0.8;
+        animation: float 10s infinite ease-in-out;
+    }
+
+    .blob-1 {
+            top: 20%;
+            left: 20%;
+            width: 300px;
+            height: 300px;
+            background: #7b2cbf;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            top: 40%;
+            right: 20%;
+            width: 350px;
+            height: 350px;
+            background: #3a0ca3;
+            animation-delay: -2s;
+        }
+
+        .blob-3 {
+            bottom: 10%;
+            left: 30%;
+            width: 400px;
+            height: 400px;
+            background: #4361ee;
+            animation-delay: -4s;
+        }
+
+        .glass-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px); /* Розмиває плями для м'якості */
+            z-index: 0;
+        }
 }
+       

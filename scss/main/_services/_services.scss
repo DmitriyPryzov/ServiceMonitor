@@ -5,7 +5,8 @@
     width: 100%;
     height: 100vh;
     max-height: 100vh;
-    background-color: rgb(0, 0, 0, 1);
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);  
 
     &-header {
         flex: 0;
@@ -18,7 +19,6 @@
         gap: 20px;
 
         @include font("Montserrat", 400, 18px);
-        background-color: #161616;
     }
 
     &__title {
@@ -32,7 +32,7 @@
         @include flex();    
         cursor: pointer;
         color: #fff;
-        background-color: #161616;
+        background-color: rgb(22, 22, 22, 0);
 
         &:hover {
             background-color: #272727;

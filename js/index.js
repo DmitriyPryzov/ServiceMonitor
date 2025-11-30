@@ -9,6 +9,8 @@ import Enterprises from "./exampleList.js";
 
 import ServiceMonitor from "./services/ServiceMonitor.js";
 
+import exampleList from "./exampleList.js";
+
 const heroInput = document.querySelector(".hero__input");
 const resultFindList = document.querySelector(".result");
 const menuFindList = document.querySelector(".menu-list");
@@ -19,8 +21,9 @@ const addInput = document.querySelector("#add-input");
 const newClientBtn = document.querySelector("#add-btn");
 
 
-const res = await new ServiceMonitor().getAllClient();
-console.log(res);
+// const res = await new ServiceMonitor().getAllClient();
+const res = exampleList;
+
 
 
 

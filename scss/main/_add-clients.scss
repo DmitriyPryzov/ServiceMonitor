@@ -15,20 +15,38 @@
             outline: none;
             font-size: 15px;
             background-color: #2b2b2b; 
+            background: rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px); 
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px #121212 inset !important;
+            -webkit-text-fill-color: white !important;
+            caret-color: white !important;
+            transition: background-color 5000s ease-in-out 0s;
         }
     }
 
     .add-client {
         width: 100%;
         height: 100%;
-        background-color: rgb(0, 0, 0, 1);
         position: absolute;
+
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);  
 
         &-panel {
             margin-top: 50px;
             background-color: #161616;
             padding: 20px;
             border-radius: 20px;
+            background: rgba(20, 20, 20, 0.1);
+            backdrop-filter: blur(8px); 
+            border: 1px solid #242424;
+            box-shadow: 0px 0px 14px 4px rgba(0, 0, 0, 0.5);
         }
 
         &-list {
@@ -59,7 +77,7 @@
                     }
 
                     .add-client__name {
-                        background-color: #2b2b2b;
+                        background-color: rgb(23, 22, 24);
                     }
 
                     .add-client__name.edited {
@@ -67,7 +85,7 @@
                         background-color: #3f3f3f;
                     }
 
-                    background-color: #2b2b2b;
+                    background-color: rgb(23, 22, 24);
                 }     
             }
         }
@@ -90,7 +108,7 @@
             font-size: 20px;
             width: 100%;
             max-width: 500px;
-            background-color: #161616;
+            background-color: transparent;
             border: none;
             color: #fff;
             outline: none;
@@ -182,7 +200,7 @@
     }
 
     .sublist__name {
-        background-color: #161616;
+        background-color: transparent;
         border: none;
         color: #fff;
         pointer-events: none;
