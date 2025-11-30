@@ -5,6 +5,8 @@ import ClientsList from "./components/ClientsList.js";
 import FindItem from "./components/FindItem.js";
 import MenuItem from "./components/MenuItem.js";
 
+import selectMenuItem from "./selectMenuItem.js";
+
 import Enterprises from "./exampleList.js";
 
 import ServiceMonitor from "./services/ServiceMonitor.js";
@@ -54,13 +56,19 @@ document.addEventListener("click", (e) => {
         }, 1000);
     }
 
-    if (target.closest(".menu-list__item")) {
+    if (target.closest(".menu-list__name")) {
         const acc = target.closest(".menu-list__item");
 
         acc.classList.toggle("open");
     }
+
+    if (target.classList.contains("menu-sublist__item")) {
+        selectMenuItem(target.dataset.id);
+        
+    }
 });
 
+heroInput.focus();
 heroInput.addEventListener("input", () => {
     clientFind(heroInput, resultItems);
 });
