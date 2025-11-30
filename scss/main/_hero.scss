@@ -63,6 +63,7 @@
         letter-spacing: 5px;
         font-weight: 700;
         font-family: "Montserrat", sans-serif;
+        animation-delay: 0.5s;
     }
 
     &__input {
@@ -81,6 +82,7 @@
 
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(5px); 
+        animation-delay: 0.7s;
     }
 
     .find {

@@ -119,6 +119,24 @@ a, a:visited {
   background: rgba(255, 255, 255, 0.5);
 }
 
+.fade-down {
+  animation-name: fadeDown;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  opacity: 0;
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .hero {
   width: 100%;
   height: 100vh;
@@ -174,6 +192,7 @@ a, a:visited {
   letter-spacing: 5px;
   font-weight: 700;
   font-family: "Montserrat", sans-serif;
+  animation-delay: 0.5s;
 }
 .hero__input {
   width: 500px;
@@ -188,6 +207,7 @@ a, a:visited {
   font-family: "Montserrat", sans-serif;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(5px);
+  animation-delay: 0.7s;
 }
 .hero .find {
   display: flex;
@@ -898,6 +918,7 @@ a, a:visited {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  animation-delay: 0s;
 }
 .header-logo {
   margin: 0;
