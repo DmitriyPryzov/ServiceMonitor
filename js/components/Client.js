@@ -1,138 +1,188 @@
-import Element from "../element.js";
+import Enterprise from "./Enterprises.js";
 
-import Enterprise from "./Enterptise.js";
+import newElement from "../helpers/element.js";
+
 
 export default class Client {
-    constructor({Name, Objects}, callback) {
-        this.name = Name;
-        this.objects = Objects || [];
+    constructor(data) {
+        this.root = document.createElement("li");
+        this.root.classList.add("add-client__item");
 
-        this.callback = callback;
+        const {title, objects, acc, id} = this.initData(data);
 
-        this.mainElem;
+        this.refs = {};
 
-        this.elements = {};
+        this.state = {
+            acc: acc,
+            open: false,
+            title: title,
+            id: id,
+            edited: false,
+            objects: objects
+        };
 
-        this.removeEnterprise = this.removeEnterprise.bind(this);
-
-        this.#render();
+        this.build();
+        this.update();
+        this.onAction();
     }
 
-    get() {
-        return this.mainElem;
-    }
+    initData(data) {
+        const defaults = {title: "", id: 0, objects: [], acc: false};
 
+        if (!data) return defaults;
 
-    onAction(e) {
-        const target = e.target;
-
-        if (target.closest(".edit-group")) {
-            this.onEdit();
+        if (typeof data == "string") {
+            return {...defaults, title: data};
+        }
+        if (typeof data == "object" && data !== null) {
+            return {
+                title: data.Name || "Помилка",
+                id: data.ID || 0,
+                objects: data.Objects || [],
+                acc: data.Objects.length ? true : false
+            }
         }
 
-        if (target.closest(".remove-group")) {
-            this.remove();
-        }
-
-        if (target.closest(".add-enterprise")) {
-            const enterprise = this.addEnterprise({Name: ""});
-
-            this.openAccordion();
-            this.elements.sublistContent.insertAdjacentElement("afterbegin", enterprise.get());
-            enterprise.onEdit();
-        }
-
-        if (target.classList.contains("add-client-wrap")) {
-            this.mainElem.classList.toggle("open");
-        }
+        return defaults;
     }
 
-    openAccordion() {
-        this.mainElem.classList.add("acc", "open");
+    setState(state) {
+        this.state = {...this.state, ...state};
+        this.update();
     }
 
-    onEdit() {
-        this.elements.name.classList.add("edited");
-        this.elements.name.focus();
+    onAction() {
+        this.root.addEventListener("click", (e) => {
+            const target = e.target;
+            const input = this.refs.input;
 
-        this.outFocus = this.onOutFocus.bind(this);
+            if (target.closest(".acc-name")) {
+                this.setState({open: this.state.open ? false : true});
+            }
 
-        this.elements.name.addEventListener("blur",  this.outFocus);
-    }
+            if (target.closest(".edit-group")) {
+                this.setState({edited: true});
+                input.focus();
 
-    onOutFocus() {
-        this.elements.name.removeEventListener("blur", this.outFocus);
-        delete this.outFocus;
-        
-        if (this.elements.name.value == "") {
-            this.elements.name.value = this.name;
-        }
-        this.elements.name.classList.remove("edited");
-        console.log(this.callback);
-        
-        this.callback({editName: "asdasd"});
-    }
+                const length = input.value.length;
 
-    addEnterprise(data) {
-        return new Enterprise(data, this.removeEnterprise);
-    }
+                input.setSelectionRange(length, length);
+            }
 
-    remove() {
-        this.mainElem.remove();
-    }
+            if (target.closest(".remove-group")) {
+                this.event("remove-client");
+                this.root.remove();
+            }
 
-    removeEnterprise(enterprise) {  
-        if (this.elements.sublistContent.childNodes.length == 1) {            
-            this.mainElem.classList.remove("acc", "open");
-        }
-        enterprise.remove();
-    }
-    
-    #render() {        
-        const isAcc = this.objects.length > 0 ? "acc" : "";
+            if (target.closest(".add-enterprise")) {
 
-        const li = new Element({tag: "li", classes: `add-client__item ${isAcc}`})
-                            .child({name: "block", classes: "block"})
-                            .child({name: "sublist", classes: "add-client-sublist acc-sublist"});    
-        
-        const nameWrap = new Element({classes: "add-client-wrap acc-name"});
-        const name = new Element({tag: "input", classes: "add-client__name", text: this.name});
-        const events = new Element({classes: "add-client-events"});
-                events.get().insertAdjacentHTML("beforeend", `
-                        <a class="add-enterprise"><img src="./assets/img/icons/add.svg" alt="add"></a>
-                        <a class="edit-group"><img src="./assets/img/icons/edit_sim.svg" alt="edit-group"></a>
-                        <a class="remove-group"><img src="./assets/img/icons/delete.svg" alt="delete"></a>`);
+                const newObject = {ID: crypto.randomUUID(), Token: null, Name: "", EnterpriseID: this.state.id};
 
-            nameWrap.get().append(name.get());
-            li.get("block").append(nameWrap.get(), events.get());
+                const enterprise = new Enterprise(newObject, {edited: true});
+                this.refs.sublist.append(enterprise.get());
+                const newStateObjects = [...this.state.objects, newObject];
 
-        name.get().addEventListener("keydown", (e) => {
-            if (e.code == "Enter") {
-                this.elements.name.classList.remove("edited");
-                this.elements.name.blur();
+                this.setState(this.state.acc ? {open: true, objects: newStateObjects} : {open: true, acc: true, objects: newStateObjects});
+                enterprise.focus();
             }
         });
 
-        const sublistContent = new Element({classes: "acc-sublist-content"});
-        li.get("sublist").append(sublistContent.get());
+        this.root.addEventListener("keydown", (e) => {
+            if (e.code === "Enter") {
+                this.setState({edited: false});
+                this.refs.input.blur();
+            }
+        });
 
-        if (this.objects.length > 0) {
-            const fragment = document.createDocumentFragment();
+        this.root.addEventListener("input", (e) => {
+            if (e.target == this.refs.input) {
+                this.state.title = e.target.value; 
+            }
+        });
+
+        this.refs.input.addEventListener("blur", () => {
+            this.setState({edited: false});
+            this.event("change-client");
+            this.refs.input.blur();
+        });
+
+        this.root.addEventListener("remove", (e) => {
+            const { id } = e.detail;
+
+            const newObjects = this.state.objects.filter(item => item.ID !== id);
+            this.setState({
+                        objects: newObjects,
+                        acc: newObjects.length,
+                        open: newObjects.length
+                    });
+
+            this.event("change-client");
+        });
+
+        this.root.addEventListener("editName", (e) => {
+            const { id, title } = e.detail;
+            const changedObjects = this.state.objects.map(item => {
+                    if (item.ID === id) {
+                        item.Name = title;
+                    }
+                    return item;
+                });
+                this.setState({objects: changedObjects});  
             
-            fragment.append(...this.objects.map(item => this.addEnterprise(item).get()));
-            
-            sublistContent.get().append(fragment);
-        }
+            this.event("change-client");
+        });
+    }
 
-        this.mainElem = li.get();
+    event(mode) {
+        if (typeof mode !== "string") return;
 
-        this.elements.parent = li.get();
-        this.elements.block = li.get("block");
-        this.elements.name = name.get();
-        this.elements.sublistContent = sublistContent.get();
+        const { title, id, objects } = this.state;
 
-        li.get().addEventListener("click", this.onAction.bind(this));
+        this.root.dispatchEvent(new CustomEvent(mode, {
+                    bubbles: true, 
+                    detail: { id, title, objects }
+                }));
+    }
+
+    get() {
+        return this.root;
+    }
+
+    update() {        
+        const {edited, acc, open} = this.state;
         
-        return li.get();
+        this.root.classList.toggle("acc", acc);
+        this.root.classList.toggle("open", open);
+
+        this.refs.input.classList.toggle("edited", edited);
+    }
+
+    renderChildren() {
+       return this.state.objects.map(item => {
+            return new Enterprise(item).get();
+        });
+    }
+
+    build() {   
+        const input = newElement("input", `add-client__name`, { value: this.state.title });
+        const sublistContent = newElement("ul", "acc-sublist-content", [...this.renderChildren()]);
+
+        this.root.append(newElement("div", "block", [
+            newElement("div", "add-client-wrap acc-name", [input]),
+            newElement("div", "add-client-events", [
+                newElement("a", "add-enterprise", [
+                    newElement("img", { src: "./assets/img/icons/add.svg", alt: "add" })
+                ]),
+                newElement("a", "edit-group", [
+                    newElement("img", { src: "./assets/img/icons/edit_sim.svg", alt: "edit-group" })
+                ]),
+                newElement("a", "remove-group", [
+                    newElement("img", { src: "./assets/img/icons/delete.svg", alt: "delete" })
+                ])
+            ])
+        ]), newElement("div", "add-client-sublist acc-sublist", [sublistContent]));
+
+        this.refs.input = input;
+        this.refs.sublist = sublistContent; 
     }
 }

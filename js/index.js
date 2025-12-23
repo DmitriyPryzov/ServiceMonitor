@@ -3,7 +3,8 @@ import showPage from "./showPage.js";
 
 import ClientsList from "./components/ClientsList.js";
 import FindItem from "./components/FindItem.js";
-import MenuItem from "./components/MenuItem.js";
+import renderMenuItems from "./components/RenderMenu.js";
+import WorkspaceControl from "./WorkspaceControl.js";
 
 import selectMenuItem from "./selectMenuItem.js";
 
@@ -11,7 +12,7 @@ import Enterprises from "./exampleList.js";
 
 import ServiceMonitor from "./services/ServiceMonitor.js";
 
-import exampleList from "./exampleList.js";
+import findInClientsArray from "./findOnMenu.js";
 
 const heroInput = document.querySelector(".hero__input");
 const resultFindList = document.querySelector(".result");
@@ -22,21 +23,41 @@ const addClientBtn = document.querySelector(".add-client-page");
 const addInput = document.querySelector("#add-input");
 const newClientBtn = document.querySelector("#add-btn");
 
-
-// const res = await new ServiceMonitor().getAllClient();
-const res = exampleList;
+const workspaceBody = document.querySelector(".workspace-body");
 
 
+const serviceMonitor = new ServiceMonitor();
+const workspaceControl = new WorkspaceControl(workspaceBody, document.querySelector(".workspace__ip"), document.querySelector(".workspace__client"));
+
+document.addEventListener("update-workspace", (e) => {
+
+    const { name } = e.detail;
+
+    workspaceControl.updateWorkspace(name);
+});
 
 
 const clients = new ClientsList(".add-client-list");
-        clients.addClient(Enterprises);
+        clients.addClients(Enterprises);
 
 
-MenuItem(menuFindList, Enterprises);
+menuFindList.insertAdjacentHTML("afterbegin", renderMenuItems(Enterprises));
+menuFindList.addEventListener("click", (e) => {
+    const target = e.target;
 
+    const menuItem = target.closest("[data-item]");
 
-const resultItems = FindItem(resultFindList, getAllClients());
+    if (menuItem) {
+        selectMenuItem(menuItem.dataset.id);   
+    }
+
+    if ( target.closest(".menu-list__name") && !target.closest("[data-item]") ) { 
+        target.closest(".acc").classList.toggle("open");
+    }
+});
+
+const allClients = await serviceMonitor.getAllClients();
+const resultItems = FindItem(resultFindList, getAllClientsItems(allClients));
 
 
 addClientBtn.addEventListener("click", () => showPage("add-client"));
@@ -55,17 +76,6 @@ document.addEventListener("click", (e) => {
             page.classList.remove("hide-page");
         }, 1000);
     }
-
-    if (target.closest(".menu-list__name")) {
-        const acc = target.closest(".menu-list__item");
-
-        acc.classList.toggle("open");
-    }
-
-    if (target.classList.contains("menu-sublist__item")) {
-        selectMenuItem(target.dataset.id);
-        
-    }
 });
 
 heroInput.focus();
@@ -77,14 +87,22 @@ heroInput.addEventListener("input", () => {
 newClientBtn.addEventListener("click", () => {    
     if (!addInput.value) return;
 
-    clients.addClient({Name: addInput.value.trim()});
+    clients.addClients(addInput.value.trim());
     addInput.value = "";
 });
 
-function getAllClients() {
+function getAllClientsItems(arr) {
     const allClients = [];
 
-    Enterprises.forEach(item => allClients.push(...item.Objects));
-
+    arr.forEach(item => {
+        if (!item?.Objects || !item?.Name) return;
+        return item.Objects.length > 0 ? allClients.push(...item.Objects) : allClients.push(item);
+    });
+    
     return allClients;
 }
+
+const menuFindInput = document.querySelector(".menu__find");
+menuFindInput.addEventListener("input", () => {
+    menuFindList.innerHTML = renderMenuItems(findInClientsArray(menuFindInput.value, Enterprises));
+});

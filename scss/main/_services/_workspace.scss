@@ -16,6 +16,14 @@
         color: #fff;
         padding: 5px;
         @include font("Montserrat", 400, 16px);
+
+        @include flex(row, space-between, center);
+    }
+
+    &__ip {
+        span {
+            font-weight: 700;
+        }
     }
 
     &-body {
