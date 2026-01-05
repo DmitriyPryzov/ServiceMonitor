@@ -1,14 +1,16 @@
 {
-  "dependencies": {
-    "sass": "^1.93.2"
-  },
   "name": "ServiceMonitor",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
-  "scripts": {
-    "sass": "sass --watch scss:css"
+  "devDependencies": {
+    "sass": "^1.97.1",
+    "vite": "^6.4.1"
   },
+  "scripts": {
+  "dev": "vite",
+  "build": "vite build",
+  "preview": "vite preview"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",

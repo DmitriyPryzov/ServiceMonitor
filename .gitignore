@@ -1,3 +1,4 @@
 node_modules/
 scss/
+vite.config.js
 package-lock.json

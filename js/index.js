@@ -14,6 +14,8 @@ import ServiceMonitor from "./services/ServiceMonitor.js";
 
 import findInClientsArray from "./findOnMenu.js";
 
+import '../scss/main.scss';
+
 const heroInput = document.querySelector(".hero__input");
 const resultFindList = document.querySelector(".result");
 const menuFindList = document.querySelector(".menu-list");
